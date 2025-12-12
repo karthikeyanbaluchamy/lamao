@@ -34,7 +34,7 @@ jobs:
 
       - name: Upload Lambda zip to S3
         run: |
-          aws s3 cp lambda-deploy.zip s3://checklamdba1/lambda-deploy.zip1
+          aws s3 cp lambda-deploy.zip s3://checklamdba1/lambda-deploy.zip
 
       - name: Check if Lambda function exists
         id: check_lambda
