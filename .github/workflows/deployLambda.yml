@@ -46,7 +46,7 @@ jobs:
 
       - name: Deploy Lambda function
         run: |
-          if [ "${{ steps.check_lambda.outputs.exists }}" == "my-lambda-function" ]; then
+          if [ "${{ steps.check_lambda.outputs.exists }}" == "true" ]; then
             echo "Lambda function exists, updating..."
             aws lambda update-function-code --function-name my-lambda-function --zip-file fileb://lambda-deploy.zip --region us-east-1
           else
