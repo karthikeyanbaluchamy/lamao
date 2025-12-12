@@ -55,7 +55,7 @@ jobs:
               --zip-file fileb://lambda-deploy.zip \
               --handler lambda_function.lambda_handler \
               --runtime python3.10 \  # Specify Python 3.10 runtime for Lambda
-              --role arn:aws:iam::YOUR_ACCOUNT_ID:role/YOUR_LAMBDA_ROLE  # Replace with your Lambda execution role ARN
+              --role arn:aws:iam::905418049972:role/Lambda-SNS-Integration-Role  # Replace with your Lambda execution role ARN
               --region us-east-1
           fi
 
