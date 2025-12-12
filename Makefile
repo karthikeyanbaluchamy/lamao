@@ -9,11 +9,14 @@ ZIP_FILE=lambda-deploy.zip
 # Define the source directory where your lambda function code is located
 SRC_DIR=src
 
+# Path to the requirements.txt file inside the src folder
+REQUIREMENTS_FILE=$(SRC_DIR)/requirements.txt
+
 # Step 1: Install dependencies
 install_dependencies:
 	# Create a package directory and install dependencies
 	rm -rf $(PACKAGE_DIR) && mkdir $(PACKAGE_DIR)
-	pip install -r requirements.txt -t $(PACKAGE_DIR)
+	pip install -r $(REQUIREMENTS_FILE) -t $(PACKAGE_DIR)
 
 # Step 2: Create Lambda deployment package (zip)
 package_lambda: install_dependencies
