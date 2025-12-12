@@ -49,18 +49,6 @@ jobs:
             echo "exists=true" >> $GITHUB_ENV  # Set environment variable for subsequent steps
           fi
 
-      - name: Deploy Lambda function
-        run: |
-          if [ "${{ env.exists }}" == "true" ]; then
-            echo "Lambda function exists, updating..."
-            aws lambda update-function-code --function-name my-lambda-function \
-              --s3-bucket checklamdba1 \
-              --s3-key lambda-deploy.zip \
-              --region us-east-1
-          else
-            echo "Lambda function does not exist, creating..."
-          fi
-
       - name: Clean up
         run: make clean  # Clean up generated files after deployment
 		
