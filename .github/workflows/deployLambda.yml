@@ -6,7 +6,7 @@ on:
 permissions:
   id-token: write
   contents: read
-  
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
@@ -35,18 +35,19 @@ jobs:
       - name: Check if Lambda function exists
         id: check_lambda
         run: |
-          FUNCTION_EXISTS=$(aws lambda get-function --function-name my-lambda-function --query 'Configuration.FunctionName' --output text || echo "NOT_FOUND")
+          FUNCTION_EXISTS=$(aws lambda get-function --function-name my-lambda-function --query 'Configuration.FunctionName' --output text 2>/dev/null || echo "NOT_FOUND")
+          
           if [ "$FUNCTION_EXISTS" == "NOT_FOUND" ]; then
             echo "Lambda function does not exist."
-            echo "::set-output name=exists::false"
+            echo "exists=false" >> $GITHUB_ENV  # Set environment variable for subsequent steps
           else
             echo "Lambda function exists: $FUNCTION_EXISTS"
-            echo "::set-output name=exists::true"
-          fi  
+            echo "exists=true" >> $GITHUB_ENV  # Set environment variable for subsequent steps
+          fi
 
       - name: Deploy Lambda function
         run: |
-          if [ "${{ steps.check_lambda.outputs.exists }}" == "true" ]; then
+          if [ "${{ env.exists }}" == "true" ]; then
             echo "Lambda function exists, updating..."
             aws lambda update-function-code --function-name my-lambda-function --zip-file fileb://lambda-deploy.zip --region us-east-1
           else
