@@ -2,6 +2,7 @@ import requests
 
 def lambda_handler(event, context):
     # Example API request
+    print("hello")
     response = requests.get('https://jsonplaceholder.typicode.com/posts')
     
     return {
